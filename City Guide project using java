@@ -1,0 +1,146 @@
+import java.awt.*;
+import java.awt.event.*;
+
+public class CityGuide extends Frame {
+    CardLayout cardLayout; // CardLayout to switch between screens
+    Panel mainPanel; // Main container for screens
+
+    public CityGuide() {
+        setTitle("City Guide");
+        setSize(600, 400);
+        setBackground(Color.LIGHT_GRAY);
+        setLayout(new BorderLayout());
+
+        // Create CardLayout and main panel
+        cardLayout = new CardLayout();
+        mainPanel = new Panel(cardLayout);
+
+        // Add all modules to the main panel
+        mainPanel.add(createHomePanel(), "Home");
+        mainPanel.add(createTouristSpotsPanel(), "TouristSpots");
+        mainPanel.add(createHotelsPanel(), "Hotels");
+        mainPanel.add(createTransportPanel(), "Transport");
+        mainPanel.add(createEmergencyContactsPanel(), "EmergencyContacts");
+
+        add(mainPanel, BorderLayout.CENTER);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
+        setVisible(true);
+    }
+
+    // Home Screen
+    private Panel createHomePanel() {
+        Panel panel = new Panel(new FlowLayout());
+        Label heading = new Label("Welcome to the City Guide");
+        heading.setFont(new Font("Arial", Font.BOLD, 20));
+        panel.add(heading);
+
+        // Buttons for navigation
+        Button touristBtn = new Button("Tourist Spots");
+        Button hotelsBtn = new Button("Hotels & Restaurants");
+        Button transportBtn = new Button("Transportation");
+        Button contactsBtn = new Button("Emergency Contacts");
+        Button exitBtn = new Button("Exit");
+
+        // Add action listeners for navigation
+        touristBtn.addActionListener(e -> cardLayout.show(mainPanel, "TouristSpots"));
+        hotelsBtn.addActionListener(e -> cardLayout.show(mainPanel, "Hotels"));
+        transportBtn.addActionListener(e -> cardLayout.show(mainPanel, "Transport"));
+        contactsBtn.addActionListener(e -> cardLayout.show(mainPanel, "EmergencyContacts"));
+        exitBtn.addActionListener(e -> System.exit(0));
+
+        // Add buttons to the panel
+        panel.add(touristBtn);
+        panel.add(hotelsBtn);
+        panel.add(transportBtn);
+        panel.add(contactsBtn);
+        panel.add(exitBtn);
+
+        return panel;
+    }
+
+    // Tourist Spots Screen
+    private Panel createTouristSpotsPanel() {
+        Panel panel = new Panel(new BorderLayout());
+        Label heading = new Label("Tourist Spots", Label.CENTER);
+        heading.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(heading, BorderLayout.NORTH);
+
+        TextArea spots = new TextArea();
+        spots.setText("1. Spot A\n2. Spot B\n3. Spot C\n4. Spot D\n5. Spot E");
+        spots.setEditable(false);
+        panel.add(spots, BorderLayout.CENTER);
+
+        Button backBtn = new Button("Back");
+        backBtn.addActionListener(e -> cardLayout.show(mainPanel, "Home"));
+        panel.add(backBtn, BorderLayout.SOUTH);
+
+        return panel;
+    }
+
+    // Hotels and Restaurants Screen
+    private Panel createHotelsPanel() {
+        Panel panel = new Panel(new BorderLayout());
+        Label heading = new Label("Hotels & Restaurants", Label.CENTER);
+        heading.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(heading, BorderLayout.NORTH);
+
+        TextArea hotels = new TextArea();
+        hotels.setText("1. Hotel A\n2. Restaurant B\n3. Hotel C\n4. Restaurant D");
+        hotels.setEditable(false);
+        panel.add(hotels, BorderLayout.CENTER);
+
+        Button backBtn = new Button("Back");
+        backBtn.addActionListener(e -> cardLayout.show(mainPanel, "Home"));
+        panel.add(backBtn, BorderLayout.SOUTH);
+
+        return panel;
+    }
+
+    // Transportation Screen
+    private Panel createTransportPanel() {
+        Panel panel = new Panel(new BorderLayout());
+        Label heading = new Label("Transportation", Label.CENTER);
+        heading.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(heading, BorderLayout.NORTH);
+
+        TextArea transport = new TextArea();
+        transport.setText("1. Bus Services\n2. Taxi Services\n3. Metro Rail\n4. Car Rentals");
+        transport.setEditable(false);
+        panel.add(transport, BorderLayout.CENTER);
+
+        Button backBtn = new Button("Back");
+        backBtn.addActionListener(e -> cardLayout.show(mainPanel, "Home"));
+        panel.add(backBtn, BorderLayout.SOUTH);
+
+        return panel;
+    }
+
+    // Emergency Contacts Screen
+    private Panel createEmergencyContactsPanel() {
+        Panel panel = new Panel(new BorderLayout());
+        Label heading = new Label("Emergency Contacts", Label.CENTER);
+        heading.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(heading, BorderLayout.NORTH);
+
+        TextArea contacts = new TextArea();
+        contacts.setText("1. Police: 100\n2. Ambulance: 101\n3. Fire Brigade: 102");
+        contacts.setEditable(false);
+        panel.add(contacts, BorderLayout.CENTER);
+
+        Button backBtn = new Button("Back");
+        backBtn.addActionListener(e -> cardLayout.show(mainPanel, "Home"));
+        panel.add(backBtn, BorderLayout.SOUTH);
+
+        return panel;
+    }
+
+    public static void main(String[] args) {
+        new CityGuide();
+    }
+}
